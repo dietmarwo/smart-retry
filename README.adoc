@@ -39,10 +39,10 @@ Note that the threshold value determines success, and
 The same optimization algorithm
 was applied for all problems, using the same parameters.
 
-.GTOP smart retry results for reaching the absolute best value
+.GTOP smart retry results for approaching the absolute best value
 [width="80%",cols="2,^2,^2,^2,^2,^2,^2",options="header"]
 |=========================================================
-|problem |runs |absolute best |stopVal |success rate |mean time |sdev time
+|problem |runs |absolute best |threshold |success rate |mean time |sdev time
 |Cassini1 |100 |4.9307 |4.93075 |67% |3.5s |3.97s
 |Cassini2 |100 |8.383 |8.384 |100% |18.03s |6.89s
 |Gtoc1 |100 |-1581950 |-1581949 |100% |15.36s |11.92s
