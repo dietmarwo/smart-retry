@@ -43,7 +43,7 @@ was applied for all problems, using the same parameters.
 [width="80%",cols="2,^2,^2,^2,^2,^2,^2",options="header"]
 |=========================================================
 |problem |runs |absolute best |threshold |success rate |mean time |sdev time
-|Cassini1 |100 |4.9307 |4.93075 |67% |3.5s |3.97s
+|Cassini1 |100 |4.9307 |4.931 |100% |1.87s |1.83s
 |Cassini2 |100 |8.383 |8.384 |100% |18.03s |6.89s
 |Gtoc1 |100 |-1581950 |-1581949 |100% |15.36s |11.92s
 |Messenger Reduced |100 |8.6299 |8.631 |100% |19.71s |12.41s
