@@ -56,7 +56,7 @@ image::smart_retry.png[]
  
 === Compilation
 
-* Should compile for gcc versions >= 7.5. 
+* Use gcc versions >= 7.5 or clang >= 6.0
 
 * You need as include files:
 - https://github.com/imneme/pcg-cpp/blob/master/include/pcg_random.hpp
