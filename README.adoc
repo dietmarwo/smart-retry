@@ -1,0 +1,74 @@
+:encoding: utf-8
+:imagesdir: img
+:cpp: C++
+
+= smart-retry - a reference implementation solving the GTOPX mission design benchmarks
+
+`smart-retry` provides a C++ implementation solving the GTOPX space 
+mission design optimization benchmarks 
+http://www.midaco-solver.com/index.php/about/benchmarks/gtopx[GTOPX space benchmarks], see 
+https://www.sciencedirect.com/science/article/pii/S235271102100011X[GTOPX paper].
+Uses the same parallel smart retry algorithm as implemented 
+https://github.com/dietmarwo/fast-cma-es[here] 
+in Python and https://github.com/dietmarwo/fcmaes-java[here] in Java. 
+The single CPU solution times may serve as a reference point to measure the scaling
+of a http://www.midaco-solver.com/data/pub/PDPTA20_Messenger.pdf[clustered algorithm].
+
+=== Performance
+
+The expected solution times to reach a specific threshold 
+near the absolute optimum are given in the tables below. Results are for Linux and the 16 core AMD 5950x CPU.
+
+.GTOP smart retry results for threshold = 1.005*absolute_best
+[width="80%",cols="3,^2,^2,^2,^2,^2,^2",options="header"]
+|=========================================================
+|problem |runs | absolute best |threshold |success rate |mean time |sdev time
+|Cassini1 |100 |4.9307 |4.95535 |100% |0.67s |0.4s
+|Cassini2 |100 |8.383 |8.42491 |100% |7.84s |4.25s
+|Gtoc1 |100 |-1581950 |-1574080 |100% |7.3s |5.08s
+|Messenger Reduced |100 |8.6299 |8.67305 |100% |8.81s |6.44s
+|Rosetta |100 |1.3433 |1.35002 |100% |10.86s |5.35s
+|Tandem EVEES Constrained  |100 |-1500.46 |-1493 |86% |108.05s |95.48s
+|Sagas |100 |18.188 |18.279 |100% |1.28s |0.67s
+|Messenger Full |100 |1.9579 |1.96769 |53% |1243.59s |915.47s
+|Messenger Full |100 |1.9579 |2.0 |77% |626.87s |519.52s
+|=========================================================
+
+Note that the threshold value determines success, and
+'mean time' includes the time for failed runs.
+The same optimization algorithm
+was applied for all problems, using the same parameters.
+
+.GTOP smart retry results for reaching the absolute best value
+[width="80%",cols="2,^2,^2,^2,^2,^2,^2",options="header"]
+|=========================================================
+|problem |runs |absolute best |stopVal |success rate |mean time |sdev time
+|Cassini1 |100 |4.9307 |4.93075 |67% |3.5s |3.97s
+|Cassini2 |100 |8.383 |8.384 |100% |18.03s |6.89s
+|Gtoc1 |100 |-1581950 |-1581949 |100% |15.36s |11.92s
+|Messenger Reduced |100 |8.6299 |8.631 |100% |19.71s |12.41s
+|Rosetta |100 |1.3433 |1.344 |98% |20.89s |9.08s
+|Tandem |100 |-1500.46 |-1500 |64% |150.99s |130.34s
+|Sagas |100 |18.188 |18.189 |100% |1.52s |0.75s
+|=========================================================
+
+image::smart_retry.png[]  
+ 
+=== Compilation
+
+* Should compile for gcc versions >= 7.5. 
+
+* You need as include files:
+- https://github.com/imneme/pcg-cpp/blob/master/include/pcg_random.hpp
+- http://www.midaco-solver.com/data/gtopx/cpp/gtopx.cpp
+- https://gitlab.com/libeigen/eigen/-/tree/master/Eigen
+
+On Windows use the Linux subsystem for Windows:
+- https://docs.microsoft.com/en-us/windows/wsl/install-win10[Linux subsystem] or
+- https://superuser.com/questions/1271682/is-there-a-way-of-installing-ubuntu-windows-subsystem-for-linux-on-win10-v170[Ubuntu subsystem].
+
+=== Usage
+
+After compiling run the executable routing stdout to a log file
+to execute 100 benchmark runs for each GTOPX problem. Runs
+more than a day even on fast CPUs. Adapt smartretry.cpp to modify the experiment. 
